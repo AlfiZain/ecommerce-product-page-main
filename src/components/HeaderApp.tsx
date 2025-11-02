@@ -5,10 +5,12 @@ import imgAvatar from '../assets/images/image-avatar.png';
 import Sidebar from './Sidebar';
 import { useState } from 'react';
 import CartModal from './CartModal';
+import { useCart } from '../hooks/useCart';
 
 export default function HeaderApp() {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+  const { state } = useCart();
 
   const handleCloseSidebar = (): void => {
     setIsSidebarOpen(false);
@@ -90,10 +92,15 @@ export default function HeaderApp() {
         <div className="flex items-center gap-x-4 lg:gap-x-10">
           <button
             onClick={toggleCartModal}
-            className="cursor-pointer"
+            className="relative cursor-pointer"
             aria-label="open cart"
           >
             <img src={iconCart} />
+            <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 rounded-full bg-orange px-2 text-xs text-white">
+              {state.cart.length > 0
+                ? state.cart.reduce((total, item) => total + item.qty, 0)
+                : null}
+            </span>
           </button>
           <img
             src={imgAvatar}

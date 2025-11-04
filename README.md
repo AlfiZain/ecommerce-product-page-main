@@ -41,9 +41,10 @@ Users should be able to:
 ### Built with
 
 - Mobile-first workflow
-- [React](https://reactjs.org/) – JS library for building UI
-- [Tailwind CSS](https://tailwindcss.com) – CSS Framework for styling
-- [TypeScript](https://www.typescriptlang.org/) — Type-safe JavaScript
+- [React](https://reactjs.org/) - JS library for building UI
+- [Tailwind CSS](https://tailwindcss.com) - CSS Framework for styling
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction) - For displaying user-friendly toast notifications
 
 ### What I learned
 
@@ -92,11 +93,46 @@ Users should be able to:
   }
   ```
 
+- Integrate `React Toastify` to display real-time feedback notifications.
+
+  ```tsx
+  // App.tsx
+  export default function App() {
+    return (
+      {/* content */}
+      <ToastContainer closeOnClick autoClose={4000} className="text-sm" />
+    );
+  }
+
+  // ProductDetail.tsx
+  const notifyAddToCart = (quantity: number): void => {
+    if (!quantity || quantity <= 0) {
+      toast.error('Please select a valid quantity before adding to cart');
+      return;
+    }
+
+    const itemLabel = quantity === 1 ? 'item' : 'items';
+    toast.success(`Successfully Added ${quantity} ${itemLabel} to your cart`);
+  };
+
+  const handleAddToCartClick = (): void => {
+    notifyAddToCart(quantity);
+    /* content */
+  };
+
+  return (
+    <button onClick={handleAddToCartClick}>
+      {/* content */}
+    </button>
+  )
+  ```
+
 ### Useful resources
 
 - [Lightbox example by w3schools](https://www.w3schools.com/howto/howto_js_lightbox.asp) - Helped me understanding how to create lightbox.
 - [Using clsx for tailwindcss](https://shnoman97.medium.com/simplify-your-tailwind-css-class-management-with-merge-and-clsx-42f1e2458fd8) - This is an article which helped me finally understand using clsx for tailwindcss.
 - [Official documentation how to use typescript on react](https://react.dev/learn/typescript) - For understanding how to use typescript on react.
+- [React Toastify Docs](https://fkhadra.github.io/react-toastify/introduction) - To learn how to show and customize toast notifications easily.
 
 ## Author
 

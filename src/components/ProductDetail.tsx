@@ -15,6 +15,7 @@ import { useCart } from '../hooks/useCart';
 import { addItem } from '../actions/cartAction';
 import ImageGallery from './ImageGallery';
 import Lightbox from './Lightbox';
+import { toast } from 'react-toastify';
 
 export default function ProductDetail() {
   {
@@ -81,7 +82,26 @@ export default function ProductDetail() {
     });
   };
 
+  const handleOpenLightbox = (): void => {
+    setIsLightboxOpen(true);
+  };
+
+  const handleCloseLightbox = (): void => {
+    setIsLightboxOpen(false);
+  };
+
+  const notifyAddToCart = (quantity: number): void => {
+    if (!quantity || quantity <= 0) {
+      toast.error('Please select a valid quantity before adding to cart');
+      return;
+    }
+
+    const itemLabel = quantity === 1 ? 'item' : 'items';
+    toast.success(`Successfully Added ${quantity} ${itemLabel} to your cart`);
+  };
+
   const handleAddToCartClick = (): void => {
+    notifyAddToCart(quantity);
     if (quantity > 0) {
       dispatch(
         addItem({
@@ -94,14 +114,6 @@ export default function ProductDetail() {
         }),
       );
     }
-  };
-
-  const handleOpenLightbox = (): void => {
-    setIsLightboxOpen(true);
-  };
-
-  const handleCloseLightbox = (): void => {
-    setIsLightboxOpen(false);
   };
 
   return (

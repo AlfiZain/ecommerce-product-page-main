@@ -7,7 +7,7 @@ import thumbnailProduct1 from '../assets/images/image-product-1-thumbnail.jpg';
 import thumbnailProduct2 from '../assets/images/image-product-2-thumbnail.jpg';
 import thumbnailProduct3 from '../assets/images/image-product-3-thumbnail.jpg';
 import thumbnailProduct4 from '../assets/images/image-product-4-thumbnail.jpg';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ProductInfo from './ProductInfo';
 import QuantityButton from './QuantityButton';
 import Button from './Button';
@@ -116,6 +116,16 @@ export default function ProductDetail() {
     }
   };
 
+  const handleQuantityChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const newValue = Number(event.target.value);
+    if (newValue < 0) {
+      return;
+    }
+    setQuantity(newValue);
+  };
+
   return (
     <main className="relative grid min-h-[calc(100vh-82px)] grid-cols-1 items-center justify-center gap-4 md:grid-cols-2">
       <ImageSlideshow
@@ -138,6 +148,7 @@ export default function ProductDetail() {
         <div className="flex w-full flex-col gap-4 md:flex-row">
           <QuantityButton
             quantity={quantity}
+            onQuantityChange={handleQuantityChange}
             onReduceQuantity={handleReduceClick}
             onAddQuantity={handleAddClick}
           />

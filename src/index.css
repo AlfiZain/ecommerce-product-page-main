@@ -14,3 +14,16 @@
 
   --font-kumbh-sans: 'Kumbh Sans', sans-serif;
 }
+
+@utility no-spinner {
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+    appeareance: textfield;
+  }
+}

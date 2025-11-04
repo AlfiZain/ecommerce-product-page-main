@@ -1,16 +1,20 @@
+import type React from 'react';
+
 type QuantityButtonProps = {
   quantity: number;
+  onQuantityChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onReduceQuantity: () => void;
   onAddQuantity: () => void;
 };
 
 export default function QuantityButton({
   quantity,
+  onQuantityChange,
   onReduceQuantity,
   onAddQuantity,
 }: QuantityButtonProps) {
   return (
-    <div className="flex w-full items-center justify-between rounded-md bg-light-grayish-blue p-2 md:max-w-1/3">
+    <div className="flex w-full items-center justify-between rounded-md bg-light-grayish-blue p-2 lg:max-w-1/3">
       <button
         onClick={onReduceQuantity}
         className="cursor-pointer p-4 text-orange transition duration-300 hover:text-pale-orange"
@@ -31,7 +35,13 @@ export default function QuantityButton({
           <use fill="currentColor" fillRule="nonzero" xlinkHref="#a" />
         </svg>
       </button>
-      <p className="font-bold">{quantity}</p>
+      <input
+        type="number"
+        name="quantity"
+        value={quantity}
+        onChange={onQuantityChange}
+        className="no-spinner max-w-10 py-1 text-center font-bold"
+      />
       <button
         onClick={onAddQuantity}
         className="cursor-pointer p-4 text-orange transition duration-300 hover:text-pale-orange"
